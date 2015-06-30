@@ -1,0 +1,26 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/amber_800</item>
+        <item name="colorPrimaryDark">@color/amber_900</item>
+    </style>
+
+    <style name="SettingsTheme" parent="AppTheme"/>
+
+    <style name="SnakeOrange">
+        <item name="backgroundColor">@color/amber_50</item>
+        <item name="borderColor">@color/amber_900</item>
+        <item name="bodyColor">@color/amber_500</item>
+        <item name="headColor">@color/amber_800</item>
+        <item name="foodColor">@color/red_500</item>
+    </style>
+
+    <style name="SnakeGray">
+        <item name="backgroundColor">@color/grey_300</item>
+        <item name="borderColor">@color/grey_400</item>
+        <item name="bodyColor">@color/grey_500</item>
+        <item name="headColor">@color/grey_700</item>
+        <item name="foodColor">@color/grey_800</item>
+    </style>
+
+</resources>

@@ -1,0 +1,32 @@
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ListPreference
+        android:title="@string/pref_control_label"
+        android:key="@string/pref_control_key"
+        android:entries="@array/pref_control_options"
+        android:entryValues="@array/pref_control_values"
+        android:defaultValue="@string/pref_control_value_touch"/>
+
+    <!--<ListPreference
+        android:title="@string/pref_theme_label"
+        android:key="@string/pref_theme_key"
+        android:entries="@array/pref_theme_options"
+        android:entryValues="@array/pref_theme_values"
+        android:defaultValue="@string/pref_theme_value_orange"/>-->
+
+    <CheckBoxPreference
+        android:title="@string/pref_border_label"
+        android:key="@string/pref_border_key"
+        android:summaryOn="@string/pref_border_label_on"
+        android:summaryOff="@string/pref_border_label_off"
+        android:defaultValue="@string/pref_border_value_default"/>
+
+    <CheckBoxPreference
+        android:title="@string/pref_notification_label"
+        android:key="@string/pref_notification_key"
+        android:summaryOn="@string/pref_notification_label_on"
+        android:summaryOff="@string/pref_notification_label_off"
+        android:defaultValue="@string/pref_notification_value_default"/>
+
+</PreferenceScreen>

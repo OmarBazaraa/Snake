@@ -1,0 +1,29 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    tools:context=".HighscoreFragment"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/amber_800"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/activity_margin"
+        android:layout_weight="4"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/snake_logo" />
+
+    <ListView
+        android:id="@+id/listView_highscore"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7"
+        android:background="@color/amber_50"
+        android:divider="@null"/>
+
+</LinearLayout>

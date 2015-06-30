@@ -1,0 +1,23 @@
+<resources>
+
+    <string-array name="pref_control_options">
+        <item>@string/pref_control_label_touch</item>
+        <item>@string/pref_control_label_swipe</item>
+    </string-array>
+
+    <string-array name="pref_control_values">
+        <item>@string/pref_control_value_touch</item>
+        <item>@string/pref_control_value_swipe</item>
+    </string-array>
+
+    <string-array name="pref_theme_options">
+        <item>@string/pref_theme_label_orange</item>
+        <item>@string/pref_theme_label_grey</item>
+    </string-array>
+
+    <string-array name="pref_theme_values">
+        <item>@string/pref_theme_value_orange</item>
+        <item>@string/pref_theme_value_grey</item>
+    </string-array>
+
+</resources>

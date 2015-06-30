@@ -1,0 +1,74 @@
+<resources
+    xmlns:xliff="http://schemas.android.com/apk/res-auto">
+
+    <!-- ACTIVITIES TITLES -->
+    <string name="app_name">Snake</string>
+    <string name="title_activity_game">Game</string>
+    <string name="title_activity_highscore">Highscores</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_about">About</string>
+
+    <!-- VIEWS TITLES -->
+    <string name="button_start">New Game</string>
+    <string name="button_highscore">Highscores</string>
+    <string name="dialog_username_hint">Please enter your name.</string>
+
+
+    <!-- ACTION LABELS -->
+    <string name="action_settings">Settings</string>
+    <string name="action_about">About</string>
+    <string name="action_play">Play/Pause</string>
+    <string name="action_restart">Restart</string>
+
+    <!-- SETTINGS PREFERENCES STRINGS -->
+    <!-- ............................ -->
+    <!-- CONTROL PREFERENCE -->
+    <string name="pref_control_label">Game control</string>
+    <string name="pref_control_key" translatable="false">key_control</string>
+    <string name="pref_control_label_touch">Touch</string>
+    <string name="pref_control_value_touch" translatable="false">touch</string>
+    <string name="pref_control_label_swipe">Swipes</string>
+    <string name="pref_control_value_swipe" translatable="false">swipe</string>
+    <!-- THEME PREFERENCE -->
+    <string name="pref_theme_label">Game Theme</string>
+    <string name="pref_theme_key" translatable="false">key_theme</string>
+    <string name="pref_theme_label_orange">Orange World</string>
+    <string name="pref_theme_value_orange" translatable="false">orange</string>
+    <string name="pref_theme_label_grey">Grey Beard</string>
+    <string name="pref_theme_value_grey" translatable="false">grey</string>
+    <!-- BORDER PREFERENCE -->
+    <string name="pref_border_label">Show Borders</string>
+    <string name="pref_border_key" translatable="false">key_show_borders</string>
+    <string name="pref_border_label_on">Shown</string>
+    <string name="pref_border_label_off">Hidden</string>
+    <string name="pref_border_value_default" translatable="false">true</string>
+    <!-- NOTIFICATION PREFERENCE -->
+    <string name="pref_notification_label">Game Notifications</string>
+    <string name="pref_notification_key" translatable="false">key_enable_notifications</string>
+    <string name="pref_notification_label_on">Enabled</string>
+    <string name="pref_notification_label_off">Not Enabled</string>
+    <string name="pref_notification_value_default" translatable="false">true</string>
+
+    <!-- FORMATTED STRINGS -->
+    <string name="format_duration">
+        <xliff:g id="minutes">%1$02d</xliff:g>:<xliff:g id="seconds">%2$02d</xliff:g>
+    </string>
+
+    <string name="format_notification">
+        It is time to break your last highscore record (<xliff:g id="highscore">%d</xliff:g>).
+    </string>
+
+    <!-- EXTRA LABELS -->
+    <string name="game_title">Snake Game</string>
+    <string name="score">Score</string>
+    <string name="snake_length">Snake\'s Length</string>
+    <string name="duration">Duration</string>
+    <string name="version">Version</string>
+    <string name="release_date">Release Date</string>
+    <string name="release_date_numbers">July 30, 2015</string>
+    <string name="made_by">Made by</string>
+    <string name="developer_name">Omar_Bazaraa</string>
+    <string name="warning_username">Please enter your name first.</string>
+    <string name="ticker_notification">Let the fun begin.</string>
+
+</resources>

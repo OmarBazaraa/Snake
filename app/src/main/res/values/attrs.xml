@@ -1,0 +1,22 @@
+<resources>
+    <declare-styleable name="SnakeView">
+
+        <!-- DIMENSION ATTRIBUTES-->
+        <attr name="tileSize" format="integer" />
+
+        <!-- GRAPHICS & COLOR ATTRIBUTES-->
+        <attr name="showBorder" format="boolean" />
+        <attr name="backgroundColor" format="color" />
+        <attr name="borderColor" format="color" />
+        <attr name="bodyColor" format="color" />
+        <attr name="headColor" format="color" />
+        <attr name="foodColor" format="color" />
+
+        <!-- SNAKE ATTRIBUTES-->
+        <attr name="startMoveInterval" format="integer" />
+        <attr name="startX" format="integer" />
+        <attr name="startY" format="integer" />
+        <attr name="startLength" format="integer" />
+
+    </declare-styleable>
+</resources>

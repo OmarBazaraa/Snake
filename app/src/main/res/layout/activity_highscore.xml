@@ -1,0 +1,13 @@
+<fragment
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    tools:context=".HighscoreActivity"
+    tools:layout="@layout/fragment_highscore"
+
+    android:id="@+id/fragment_highscore"
+    android:name="com.bazaraa.snake.HighscoreFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+</fragment>

@@ -1,0 +1,24 @@
+<resources>
+
+    <!-- COLORS FOR ORANGE WORLD THEME -->
+    <color name="amber_50">#FFF8E1</color>
+    <color name="amber_300">#FFD54F</color>
+    <color name="amber_500">#FFC107</color>
+    <color name="amber_700">#FFA000</color>
+    <color name="amber_800">#FF8F00</color>
+    <color name="amber_900">#FF6F00</color>
+    <color name="red_500">#F44336</color>
+
+    <!-- COLORS FOR GREY BEARD THEME -->
+    <color name="grey_300">#E0E0E0</color>
+    <color name="grey_400">#BDBDBD</color>
+    <color name="grey_500">#9E9E9E</color>
+    <color name="grey_700">#616161</color>
+    <color name="grey_800">#424242</color>
+    <color name="grey_900">#212121</color>
+
+    <!-- OTHER COLORS -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+</resources>

@@ -1,0 +1,25 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    tools:context=".GameFragment"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.bazaraa.snake.custom.SnakeView
+        android:id="@+id/snakeView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        style="@style/SnakeOrange"
+        app:tileSize="16"
+        app:showBorder="true"
+        app:startMoveInterval="100"
+        app:startX="3"
+        app:startY="5"
+        app:startLength="3"/>
+
+</LinearLayout>
