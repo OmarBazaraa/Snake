@@ -23,7 +23,7 @@
     <!-- SETTINGS PREFERENCES STRINGS -->
     <!-- ............................ -->
     <!-- CONTROL PREFERENCE -->
-    <string name="pref_control_label">Game control</string>
+    <string name="pref_control_label">Game Control Method</string>
     <string name="pref_control_key" translatable="false">key_control</string>
     <string name="pref_control_label_touch">Touch</string>
     <string name="pref_control_value_touch" translatable="false">touch</string>
