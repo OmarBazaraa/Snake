@@ -60,14 +60,17 @@ public class SnakeView extends View {
 
     // HELPER VARIABLES
     private Handler mMoveHandler;
+    private Handler mDurationHandler;
     private Random mRnd;
     private GestureDetector mDetector;
 
     // ACTION LISTENER VARIABLES
     private OnSnakeMovedListener mOnSnakeMovedListener;
+    private OnSnakeSecondPassedListener mOnSnakeSecondPassedListener;
     private OnSnakeFoodEatenListener mOnSnakeFoodEatenListener;
     private OnSnakeModeChangedListener mOnSnakeModeChangedListener;
     private OnSnakeDirectionChangedListener mOnSnakeDirectionChangedListener;
+    private OnSnakeRestartedListener mOnSnakeRestartedListener;
 
     // MODE CONSTANTS
     public static final int MODE_RUNNING = 100;
@@ -99,8 +102,12 @@ public class SnakeView extends View {
         void onSnakeMoved();
     }
 
+    public interface OnSnakeSecondPassedListener {
+        void onSnakeSecondPassed(int duration);
+    }
+
     public interface OnSnakeFoodEatenListener {
-        void onSnakeFoodEaten();
+        void onSnakeFoodEaten(int score);
     }
 
     public interface OnSnakeModeChangedListener {
@@ -109,6 +116,10 @@ public class SnakeView extends View {
 
     public interface OnSnakeDirectionChangedListener {
         void onSnakeDirectionChanged();
+    }
+
+    public interface OnSnakeRestartedListener {
+        void onSnakeRestarted();
     }
     //endregion
 
@@ -240,13 +251,27 @@ public class SnakeView extends View {
                     @Override
                     public void run() {
                         if (mMode == MODE_RUNNING) {
-                            mDuration += mMoveInterval;
                             onSnakeMove();
                             invalidate();
                             mMoveHandler.postDelayed(this, mMoveInterval);
                         }
                     }
                 }, mMoveInterval);
+
+                mDurationHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mMode == MODE_RUNNING) {
+                            mDuration += 1;
+
+                            if (mOnSnakeSecondPassedListener != null) {
+                                mOnSnakeSecondPassedListener.onSnakeSecondPassed(mDuration);
+                            }
+
+                            mDurationHandler.postDelayed(this, 1000);
+                        }
+                    }
+                }, 1000);
             }
 
             if (mOnSnakeModeChangedListener != null) {
@@ -334,6 +359,10 @@ public class SnakeView extends View {
         mOnSnakeMovedListener = listener;
     }
 
+    public void setOnSnakeSecondPassedListener(OnSnakeSecondPassedListener listener) {
+        mOnSnakeSecondPassedListener = listener;
+    }
+
     public void setOnSnakeFoodEatenListener(OnSnakeFoodEatenListener listener) {
         mOnSnakeFoodEatenListener = listener;
     }
@@ -344,6 +373,10 @@ public class SnakeView extends View {
 
     public void setOnSnakeDirectionChangedListener(OnSnakeDirectionChangedListener listener) {
         mOnSnakeDirectionChangedListener = listener;
+    }
+
+    public void setOnSnakeRestartedListener(OnSnakeRestartedListener listener) {
+        mOnSnakeRestartedListener = listener;
     }
     //endregion
 
@@ -395,6 +428,7 @@ public class SnakeView extends View {
         mLastDirection = mDirection;
         mMoveInterval = mStartMoveInterval;
         mMoveHandler = new Handler();
+        mDurationHandler = new Handler();
         mRnd = new Random();
         mDetector = new GestureDetector(getContext(), new GesturesListener());
     }
@@ -416,6 +450,10 @@ public class SnakeView extends View {
         mMoveInterval = mStartMoveInterval;
         mDuration = 0;
         mScore = 0;
+
+        if (mOnSnakeRestartedListener != null) {
+            mOnSnakeRestartedListener.onSnakeRestarted();
+        }
     }
 
     public Bundle saveStates() {
@@ -539,11 +577,11 @@ public class SnakeView extends View {
 
     private void onSnakeGrowUp(Coordinate tail) {
         mSnakeBody.add(0, tail);
-        mScore += 1000 / mMoveInterval;
+        mScore += 5000 / mMoveInterval;
         mMoveInterval *= 0.99;
 
         if (mOnSnakeFoodEatenListener != null) {
-            mOnSnakeFoodEatenListener.onSnakeFoodEaten();
+            mOnSnakeFoodEatenListener.onSnakeFoodEaten(mScore);
         }
     }
 

@@ -30,42 +30,29 @@ import com.bazaraa.snake.data.ScoreContract;
 
 public class GameFragment extends Fragment {
 
-    private SnakeView mSnake;
+    private int mHighscore;
+
+    private SnakeView mSnakeView;
+    private TextView mScoreView;
+    private TextView mDurationView;
     private MenuItem menuItemPlayPause;
 
-    private static final long DAY_IN_MILLIS = 24 * 60 * 60 * 1000;
+    private static final long TWELVE_HOURS_IN_MILLIS = 12 * 60 * 60 * 1000;
     private static final int SNAKE_NOTIFICATION_ID = 5115;
     private static final String KEY_SNAKE_STATES = "snake_states";
     private static final String KEY_EXTRA_HIGHSCORE = "extra_highscore";
 
     private void openScoreDialog() {
-        View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_dialog_score, null);
+        final View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_dialog_score, null);
 
-        TextView scoreView = (TextView) view.findViewById(R.id.dialog_textView_score);
+        final TextView scoreView = (TextView) view.findViewById(R.id.dialog_textView_score);
+        scoreView.setText(mSnakeView.getScore() + " (" + mHighscore + ")");
 
-        Cursor c = getActivity().getContentResolver().query(
-                ScoreContract.CONTENT_URI,
-                null,
-                null,
-                null,
-                ScoreContract.COLUMN_SCORE + " DESC, " + ScoreContract.COLUMN_DURATION + ", " + ScoreContract.COLUMN_DATE
-        );
+        final TextView lengthView = (TextView) view.findViewById(R.id.dialog_textView_length);
+        lengthView.setText(String.valueOf(mSnakeView.getLength()));
 
-        if (c.moveToFirst()) {
-            int highscore = c.getInt(c.getColumnIndex(ScoreContract.COLUMN_SCORE));
-            scoreView.setText(mSnake.getScore() + " (" + highscore + ")");
-        }
-        else {
-            scoreView.setText(String.valueOf(mSnake.getScore()));
-        }
-
-        c.close();
-
-        TextView lengthView = (TextView) view.findViewById(R.id.dialog_textView_length);
-        lengthView.setText(String.valueOf(mSnake.getLength()));
-
-        TextView durationView = (TextView) view.findViewById(R.id.dialog_textView_duration);
-        durationView.setText(Utility.getFormattedDuration(getActivity(), mSnake.getDuration()));
+        final TextView durationView = (TextView) view.findViewById(R.id.dialog_textView_duration);
+        durationView.setText(Utility.getFormattedDuration(getActivity(), mSnakeView.getDuration()));
 
         final EditText editText_username = (EditText) view.findViewById(R.id.dialog_editText_username);
 
@@ -85,9 +72,9 @@ public class GameFragment extends Fragment {
                     ContentValues scoreValues = new ContentValues();
                     scoreValues.put(ScoreContract.COLUMN_USERNAME, editText_username.getText().toString());
                     scoreValues.put(ScoreContract.COLUMN_DATE, System.currentTimeMillis());
-                    scoreValues.put(ScoreContract.COLUMN_SCORE, mSnake.getScore());
-                    scoreValues.put(ScoreContract.COLUMN_LENGTH, mSnake.getLength());
-                    scoreValues.put(ScoreContract.COLUMN_DURATION, mSnake.getDuration());
+                    scoreValues.put(ScoreContract.COLUMN_SCORE, mSnakeView.getScore());
+                    scoreValues.put(ScoreContract.COLUMN_LENGTH, mSnakeView.getLength());
+                    scoreValues.put(ScoreContract.COLUMN_DURATION, mSnakeView.getDuration());
 
                     getActivity().getContentResolver().insert(ScoreContract.CONTENT_URI, scoreValues);
 
@@ -101,38 +88,23 @@ public class GameFragment extends Fragment {
     }
 
     private void notifyToPlayAgain() {
-        Intent alarmIntent = new Intent(getActivity(), AlarmReceiver.class);
-
-        Cursor c = getActivity().getContentResolver().query(
-                ScoreContract.CONTENT_URI,
-                null,
-                null,
-                null,
-                ScoreContract.COLUMN_SCORE + " DESC, " + ScoreContract.COLUMN_DURATION + ", " + ScoreContract.COLUMN_DATE
-        );
-
-        if (c.moveToFirst()) {
-            int highscore = c.getInt(c.getColumnIndex(ScoreContract.COLUMN_SCORE));
-            alarmIntent.putExtra(KEY_EXTRA_HIGHSCORE, highscore);
-        }
-
-        c.close();
+        Intent alarmIntent = new Intent(getActivity(), AlarmReceiver.class).putExtra(KEY_EXTRA_HIGHSCORE, mHighscore);
 
         PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(getActivity(), 0, alarmIntent, PendingIntent.FLAG_ONE_SHOT);
 
         AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + DAY_IN_MILLIS, alarmPendingIntent);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + TWELVE_HOURS_IN_MILLIS, alarmPendingIntent);
     }
 
     public void updateExternalSettings(String controlMode, boolean showBorder) {
         if (controlMode.equals(getActivity().getString(R.string.pref_control_value_touch))) {
-            mSnake.setControlMode(SnakeView.CONTROL_MODE_TOUCH);
+            mSnakeView.setControlMode(SnakeView.CONTROL_MODE_TOUCH);
         }
         else if (controlMode.equals(getActivity().getString(R.string.pref_control_value_swipe))) {
-            mSnake.setControlMode(SnakeView.CONTROL_MODE_SWIPE);
+            mSnakeView.setControlMode(SnakeView.CONTROL_MODE_SWIPE);
         }
 
-        mSnake.setShowBorder(showBorder);
+        mSnakeView.setShowBorder(showBorder);
     }
 
     @Override
@@ -145,18 +117,38 @@ public class GameFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_game, container, false);
 
-        mSnake = (SnakeView) rootView.findViewById(R.id.snakeView);
+        mHighscore = Utility.getHighscore(getActivity());
+
+        mSnakeView = (SnakeView) rootView.findViewById(R.id.snakeView);
+        mScoreView = (TextView) rootView.findViewById(R.id.textView_score);
+        mDurationView = (TextView) rootView.findViewById(R.id.textView_duration);
 
         if (savedInstanceState != null) {
-            mSnake.restoreStates(savedInstanceState.getBundle(KEY_SNAKE_STATES));
+            mSnakeView.restoreStates(savedInstanceState.getBundle(KEY_SNAKE_STATES));
         }
 
         if (Utility.getGameControlValue(getActivity()).equals(getActivity().getString(R.string.pref_control_value_swipe))) {
-            mSnake.setControlMode(SnakeView.CONTROL_MODE_SWIPE);
+            mSnakeView.setControlMode(SnakeView.CONTROL_MODE_SWIPE);
         }
 
-        mSnake.setShowBorder(Utility.showBorder(getActivity()));
-        mSnake.setOnSnakeModeChangedListener(new SnakeView.OnSnakeModeChangedListener() {
+        mSnakeView.setShowBorder(Utility.showBorder(getActivity()));
+        mSnakeView.setOnSnakeSecondPassedListener(new SnakeView.OnSnakeSecondPassedListener() {
+            @Override
+            public void onSnakeSecondPassed(int duration) {
+                mDurationView.setText(Utility.getFormattedDuration(getActivity(), duration));
+            }
+        });
+        mSnakeView.setOnSnakeFoodEatenListener(new SnakeView.OnSnakeFoodEatenListener() {
+            @Override
+            public void onSnakeFoodEaten(int score) {
+                if (score > mHighscore) {
+                    mHighscore = score;
+                }
+
+                mScoreView.setText(score + " (" + mHighscore + ")");
+            }
+        });
+        mSnakeView.setOnSnakeModeChangedListener(new SnakeView.OnSnakeModeChangedListener() {
             @Override
             public void onSnakeModeChanged(int mode) {
                 switch (mode) {
@@ -176,6 +168,17 @@ public class GameFragment extends Fragment {
                 }
             }
         });
+        mSnakeView.setOnSnakeRestartedListener(new SnakeView.OnSnakeRestartedListener() {
+            @Override
+            public void onSnakeRestarted() {
+                mHighscore = Utility.getHighscore(getActivity());
+
+                mScoreView.setText("0 (" + mHighscore + ")");
+                mDurationView.setText("00:00");
+            }
+        });
+
+        mScoreView.setText(mSnakeView.getScore() + " (" + mHighscore + ")");
 
         return rootView;
     }
@@ -184,8 +187,8 @@ public class GameFragment extends Fragment {
     public void onPause() {
         super.onPause();
 
-        if (mSnake.getMode() == SnakeView.MODE_RUNNING) {
-            mSnake.setMode(SnakeView.MODE_PAUSED);
+        if (mSnakeView.getMode() == SnakeView.MODE_RUNNING) {
+            mSnakeView.setMode(SnakeView.MODE_PAUSED);
         }
     }
 
@@ -193,8 +196,8 @@ public class GameFragment extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        if (mSnake != null) {
-            outState.putBundle(KEY_SNAKE_STATES, mSnake.saveStates());
+        if (mSnakeView != null) {
+            outState.putBundle(KEY_SNAKE_STATES, mSnakeView.saveStates());
         }
     }
 
@@ -208,17 +211,17 @@ public class GameFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_play:
-                switch (mSnake.getMode()) {
+                switch (mSnakeView.getMode()) {
                     case SnakeView.MODE_RUNNING:
-                        mSnake.setMode(SnakeView.MODE_PAUSED);
+                        mSnakeView.setMode(SnakeView.MODE_PAUSED);
                         break;
                     case SnakeView.MODE_PAUSED:
-                        mSnake.setMode(SnakeView.MODE_RUNNING);
+                        mSnakeView.setMode(SnakeView.MODE_RUNNING);
                         break;
                 }
                 return true;
             case R.id.action_restart:
-                mSnake.restart();
+                mSnakeView.restart();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

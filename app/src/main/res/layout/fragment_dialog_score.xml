@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="sans-serif-condensed"
-            android:text="589"
+            android:text="589 (760)"
             android:textColor="@color/white"
             android:textSize="24sp" />
     </LinearLayout>

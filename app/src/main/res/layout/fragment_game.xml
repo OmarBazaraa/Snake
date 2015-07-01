@@ -9,6 +9,48 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/amber_800"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingLeft="@dimen/activity_margin"
+        android:paddingRight="@dimen/activity_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:paddingEnd="@dimen/activity_margin"
+            android:paddingRight="@dimen/activity_margin"
+            android:text="@string/score"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView_score"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:fontFamily="sans-serif-condensed"
+            android:text="0 (546)"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/textView_duration"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-condensed"
+            android:gravity="end"
+            android:text="00:00"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+    </LinearLayout>
+
     <com.bazaraa.snake.custom.SnakeView
         android:id="@+id/snakeView"
         android:layout_width="match_parent"
@@ -21,5 +63,4 @@
         app:startX="3"
         app:startY="5"
         app:startLength="3"/>
-
 </LinearLayout>

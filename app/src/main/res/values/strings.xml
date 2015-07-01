@@ -50,13 +50,8 @@
     <string name="pref_notification_value_default" translatable="false">true</string>
 
     <!-- FORMATTED STRINGS -->
-    <string name="format_duration">
-        <xliff:g id="minutes">%1$02d</xliff:g>:<xliff:g id="seconds">%2$02d</xliff:g>
-    </string>
-
-    <string name="format_notification">
-        It is time to break your last highscore record (<xliff:g id="highscore">%d</xliff:g>).
-    </string>
+    <string name="format_duration"><xliff:g id="minutes">%1$02d</xliff:g>:<xliff:g id="seconds">%2$02d</xliff:g></string>
+    <string name="format_notification">It is time to break your last highscore record (<xliff:g id="highscore">%d</xliff:g>).</string>
 
     <!-- EXTRA LABELS -->
     <string name="game_title">Snake Game</string>
@@ -65,7 +60,7 @@
     <string name="duration">Duration</string>
     <string name="version">Version</string>
     <string name="release_date">Release Date</string>
-    <string name="release_date_numbers">July 30, 2015</string>
+    <string name="release_date_numbers">July 1, 2015</string>
     <string name="made_by">Made by</string>
     <string name="developer_name">Omar_Bazaraa</string>
     <string name="warning_username">Please enter your name first.</string>

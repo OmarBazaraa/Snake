@@ -6,7 +6,7 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/amber_50"
+    android:background="@color/amber_800"
     android:orientation="vertical"
     android:padding="@dimen/activity_margin">
 
@@ -33,7 +33,6 @@
             android:fontFamily="sans-serif-condensed"
             android:onClick="buttonStartClicked"
             android:text="@string/button_start"
-            android:textColor="@color/white"
             android:textStyle="bold" />
 
         <Button
@@ -45,7 +44,6 @@
             android:fontFamily="sans-serif-condensed"
             android:onClick="buttonHighscoreClicked"
             android:text="@string/button_highscore"
-            android:textColor="@color/white"
             android:textStyle="bold" />
     </LinearLayout>
 

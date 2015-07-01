@@ -13,8 +13,6 @@ public class AboutActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
-        getSupportActionBar().setElevation(0.0f);
-
         TextView versionView = (TextView) findViewById(R.id.textView_version);
 
         try {

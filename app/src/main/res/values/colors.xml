@@ -2,6 +2,8 @@
 
     <!-- COLORS FOR ORANGE WORLD THEME -->
     <color name="amber_50">#FFF8E1</color>
+    <color name="amber_100">#FFECB3</color>
+    <color name="amber_200">#FFE082</color>
     <color name="amber_300">#FFD54F</color>
     <color name="amber_500">#FFC107</color>
     <color name="amber_700">#FFA000</color>

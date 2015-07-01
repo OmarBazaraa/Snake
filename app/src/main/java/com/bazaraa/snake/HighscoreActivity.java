@@ -13,8 +13,6 @@ public class HighscoreActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_highscore);
-
-        getSupportActionBar().setElevation(0.0f);
     }
 
     @Override

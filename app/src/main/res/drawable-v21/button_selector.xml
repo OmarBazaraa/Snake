@@ -1,8 +1,8 @@
 <ripple
     xmlns:android="http://schemas.android.com/apk/res/android"
 
-    android:color="@color/amber_500">
+    android:color="@color/amber_100">
 
-    <item android:drawable="@color/amber_800"/>
+    <item android:drawable="@color/amber_50"/>
 
 </ripple>
